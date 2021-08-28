@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<body>
+    
+    {% if user.is_authenticated %}
+
+    <h1>글 작성</h1>
+
+    <form action="{% url 'new' %}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <table>
+            {{form | crispy}}
+        </table>
+        <button type="submit"> submit </button>
+    </form> 
+
+    {% endif %}
+
+</body>     
+{% endblock %}

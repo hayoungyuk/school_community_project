@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{{schoolapp.title}}</h1>
+    <div>
+    작성자:{{schoolapp.writer}}
+    <br>
+    {{schoolapp.pub_date}}
+    </div>
+    <hr>
+
+    {% if schoolapp.image %}
+    <p><img src="{{schoolapp.image.url}}" height="250"></p>
+    {% endif %}
+    
+    <p>{{schoolapp.body | linebreaks}}</p>
+
+    <hr>
+
+    
+    {% if user.is_authenticated%}
+        <a href="{% url 'edit' schoolapp.id %}" class="btn btn-outline-warning"> 수정하기 </a>
+        <a href="{% url 'delete' schoolapp.id %}" class="btn btn-outline-danger"> 삭제하기 </a>
+    {% endif %}
+
+{% endblock %}

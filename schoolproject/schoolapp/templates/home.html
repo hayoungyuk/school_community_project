@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3c8166rn85"></script>
+</head>
+<body>
+    
+
+<div class="container">
+    <br>
+    <h1>학교생활공유</h1>
+
+    <table class="table">
+        <tr>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>자세히보기</td>
+            <td>태그</td>
+        </tr>
+        {% for schoolapp in schoolapps %}
+        
+        <tr>
+            <td>{{schoolapp.title}}</td>
+            <td>{{schoolapp.writer}}</td>
+            <td>{{schoolapp.pub_date | date:"Y-m-d"}}</td>
+            <td> <a href="{% url 'detail' schoolapp.id%}" class="btn btn-outline-secondary">더보기</a> </td>
+
+            {% for tag in schoolapp.tags.all %}
+                    <td>{{tag}}</td>
+            {% endfor %}
+
+        </tr>
+
+        {% empty %} 
+            <h3>아직 공유 내용이 없습니다. 학교생활을 공유해주세요.</h3>
+        {% endfor %}
+
+    </div>
+    </table>
+<hr>
+<h2>🏫동덕여자대학교 - 월곡</h2>
+<div id="map" style="width:100%;height:400px;"></div>
+
+<script>
+var mapOptions = {
+    center: new naver.maps.LatLng(37.6052259,127.0407796),
+    zoom: 16
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+</script>
+<div class = "row my-3">
+    <footer class="py-3 bg-dark">
+        <p class="m-0 text-center text-white">
+            학교생활공유 - 2021
+        </p>
+    </footer>
+    </div>
+</body>
+</html>
+</div>
+</div>
+
+
+{% endblock %}
